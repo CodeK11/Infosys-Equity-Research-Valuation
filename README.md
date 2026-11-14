@@ -26,51 +26,12 @@ A source-traceable equity research and valuation portfolio project using six yea
 | `docs/` | Sequential construction guide in PDF and editable DOCX |
 | `requirements.txt` | Python dependencies |
 
-## Quick start
-
-### 1. Review the model
-
-Open `workbook/Infosys_Final.xlsx`. Start with the **Investment Summary** and **Start Here** sheets, then review the DCF, Trading Comparables, forecast, source register, source trace, audit sheets, and reconciliation log.
-
-### 2. Set up Python
-
-Use Python 3.10+ and install the listed dependencies:
-
-```bash
-python -m pip install -r requirements.txt
-```
-
-### 3. Run the notebook
-
-Open Jupyter Notebook or JupyterLab with the repository root as the working directory, then open `notebooks/Infosys_Python_SQL_Analysis.ipynb`.
-
-The notebook is configured to read `workbook/Infosys_Final.xlsx` and write the rebuilt database to `database/Infosys_Analysis.db`. Run the cells from top to bottom. The workflow reshapes historical data, runs selected checks, calculates trend indicators, creates charts, and rebuilds the SQLite database.
-
-The committed `database/Infosys_Analysis.db` is a ready-to-query snapshot. The notebook-generated SQLite database is the canonical analytical database; MySQL is an additional migrated copy.
-
-### 4. Run the SQLite queries
-
-Open `database/Infosys_Analysis.db` with a SQLite client and run the statements in `sql/Infosys_SQL_Analysis.sql`.
-
-### 5. Optional: use MySQL Workbench
-
-The MySQL workflow was completed using MySQL Server 8.0.46 and a separate schema named `infosys_valuation`.
-
-- Do not modify unrelated schemas (for example, `upi_analytics`).
-- Install the connector if needed: `python -m pip install mysql-connector-python`.
-- Create/select an empty `infosys_valuation` schema.
-- Run `python scripts/Infosys_SQLite_to_MySQL_Migration.py` from the repository root. The script locates `database/Infosys_Analysis.db` automatically.
-- The migration script requests the password at runtime; never place credentials in code or commit them.
-- Open `sql/Infosys_MySQL_Analysis.sql` in MySQL Workbench and execute one highlighted query at a time.
-
 **Previously validated MySQL copy:** five tables, 343 rows total:
 - `annual_financials`: 198
 - `annual_ratios`: 84
 - `annual_trend`: 6
 - `quality_checks`: 31
 - `source_register`: 24
-
-The SQLite-to-MySQL migration was checked row-by-row and value-by-value and returned **ALL PASS** in the working environment. Re-run the validation after any future migration or data refresh.
 
 ## Important analytical definitions and limitations
 
